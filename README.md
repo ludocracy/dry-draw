@@ -5,8 +5,8 @@ firebase:
 react:
 - offer examples for each type of operation
 - expression testing area - fold away when not in use?
-  - input field
-  - param detector in javascript
+  - add 'param' class to text inside input?
+  - add hover effect on param menu items to highlight .param text inside input
 - text area input for raw svg file
 - detect parameters button
   - use javascript to detect params in text

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import './Expressions.css';
 
+import axios from 'axios';
+
 import Parameters from './Parameters';
 
 class Expressions extends Component {
@@ -8,11 +10,14 @@ class Expressions extends Component {
     super(props);
 
     this.state = {
-      params: {}
+      params: {},
+      evaluatedStr: ''
     }
 
     this._extractParams = this._extractParams.bind(this);
     this._handleChange = this._handleChange.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleParamsChange = this._handleParamsChange.bind(this);
   }
 
   _handleChange(e) {
@@ -35,11 +40,44 @@ class Expressions extends Component {
     return params;
   }
 
+  _handleSubmit(e) {
+    e.preventDefault();
+    // const url = 'https://duxml.herokuapp.com/evaluateStr';
+    const url = 'http://localhost:4567/evaluateStr';
+    let defined_params = {}
+    for (let key in this.state.params) {
+      if (this.state.params[key] !== null) {
+        defined_params[key] = this.state.params[key]
+      }
+    }
+
+    axios({
+      method: 'post',
+      url: url,
+      responseType: 'text',
+      params: defined_params,
+      data: this.expression.value
+    })
+    .then(response => {
+      console.log(response)
+      this.setState({
+        evaluatedStr: response.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+
   render() {
     return (
       <div className="Expressions">
-        <input type="text" ref={input => this.expression = input} onChange={this._handleChange}/>
-        <Parameters params={this.state.params} />
+        <form onSubmit={this._handleSubmit}>
+          <input type="text" ref={input => this.expression = input} onChange={this._handleChange}/>
+          <button type="submit">Evaluate</button>
+        </form>
+        <Parameters params={this.state.params} _handleParamsChange={this._handleParamsChange}/>
+        <p className="evaluatedStr">{this.state.evaluatedStr}</p>
       </div>
     );
   }
