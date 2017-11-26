@@ -20,6 +20,14 @@ class Expressions extends Component {
     this._handleParamsChange = this._handleParamsChange.bind(this);
   }
 
+  _handleParamsChange(param, value) {
+    let newParams = this.state.params;
+    newParams[param] = value;
+    this.setState({
+      params: newParams
+    });
+  }
+
   _handleChange(e) {
     this.setState({
       params: this._extractParams(this.expression.value)

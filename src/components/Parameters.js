@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 // import './Parameters.css';
+import Parameter from './Parameter';
 
 class Parameters extends Component {
   render() {
-    let parameterItems = [];
+    let parameterComps = [];
     for (let param in this.props.params) {
-      parameterItems.push(<p>{`${param}=>${this.props.params[param]}`}</p>);
+      parameterComps.push(
+        <Parameter _handleParamsChange={this.props._handleParamsChange}
+          param={param} value={this.props.params[param]} />
+      );
     }
 
     return (
       <div className="Parameters">
-        { parameterItems }
+        { parameterComps }
       </div>
     );
   }
