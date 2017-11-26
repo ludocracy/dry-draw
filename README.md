@@ -4,9 +4,19 @@ firebase:
 
 react:
 - offer examples for each type of operation
-- input for xml/svg
-- evaluate by hitting back end Rails
-- output xml
-  - if svg, display
-- display parameters and have input field for each to modify values
+- expression testing area - fold away when not in use?
+  - input field
+  - param detector in javascript
+- text area input for raw svg file
+- detect parameters button
+  - use javascript to detect params in text
+  - generate params menu
+  - saves svg to firebase
+  - saves params to svg/param_sets in firebase
+- evaluate button
+  - pulls params from params menu
+  - hits ruby back end
+  - saves result to svg/param_sets/:id/result in firebase
+- output svg
+  - use javascript to remap @if to mouseover/label text
 - link to github project
