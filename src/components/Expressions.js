@@ -22,7 +22,7 @@ class Expressions extends Component {
 
   _handleParamsChange(param, value) {
     let newParams = this.state.params;
-    newParams[param] = value;
+    newParams[param] = value === '' ? null : value;
     this.setState({
       params: newParams
     });
