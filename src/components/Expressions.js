@@ -67,7 +67,6 @@ class Expressions extends Component {
       data: this.expression.value
     })
     .then(response => {
-      console.log(response)
       this.setState({
         evaluatedStr: response.data
       });
