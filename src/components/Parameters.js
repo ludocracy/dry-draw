@@ -4,6 +4,7 @@ import Parameter from './Parameter';
 
 class Parameters extends Component {
   render() {
+    console.log(`Parameters this.props.params = ${JSON.stringify(this.props.params)}`)
     let parameterComps = [];
     let key = 0;
     for (let param in this.props.params) {

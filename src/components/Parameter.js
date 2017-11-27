@@ -12,6 +12,10 @@ class Parameter extends Component {
     this.props._handleOneParamChange(this.props.param, this.inputRef.value);
   }
 
+  componentWillUpdate(nextProps) {
+    this.inputRef.value = this.props.value;
+  }
+
   render() {
     return (
       <div className="Parameter">

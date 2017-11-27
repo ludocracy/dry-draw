@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 // import './Expressions.css';
-
 import axios from 'axios';
 
 import Parameters from './Parameters';
+import ExpressionForm from './ExpressionForm';
 
 class Expressions extends Component {
   constructor(props) {
@@ -11,16 +11,26 @@ class Expressions extends Component {
 
     this.state = {
       params: {},
-      evaluatedStr: ''
+      evaluatedExpression: ''
     }
 
-    this._extractParams = this._extractParams.bind(this);
-    this._handleChange = this._handleChange.bind(this);
-    this._handleSubmit = this._handleSubmit.bind(this);
     this._handleParamsChange = this._handleParamsChange.bind(this);
+    this._handleOneParamChange = this._handleOneParamChange.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
+    this._getDefinedParams = this._getDefinedParams.bind(this);
   }
 
-  _handleParamsChange(param, value) {
+  _getDefinedParams() {
+    let defined_params = {}
+    for (let key in this.state.params) {
+      if (this.state.params[key] !== null) {
+        defined_params[key] = this.props.params[key];
+      }
+    }
+    return defined_params;
+  }
+
+  _handleOneParamChange(param, value) {
     let newParams = this.state.params;
     newParams[param] = value === '' ? null : value;
     this.setState({
@@ -28,63 +38,53 @@ class Expressions extends Component {
     });
   }
 
-  _handleChange(e) {
-    this.setState({
-      params: this._extractParams(this.expression.value)
-    });
-  }
-
-  _extractParams(str) {
-    let regex = /(?:(?!true|false))\b([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
-    let match;
-    let params = {};
-
-    do {
-      match = regex.exec(str);
-      if (match) {
-        params[match[0]] = null;
-      }
-    } while (match);
-    return params;
-  }
-
-  _handleSubmit(e) {
-    e.preventDefault();
+  _handleSubmit(expression) {
     const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/evaluateStr';
     // const url = 'http://localhost:4567/evaluateStr';
-    let defined_params = {}
-    for (let key in this.state.params) {
-      if (this.state.params[key] !== null) {
-        defined_params[key] = this.state.params[key]
-      }
-    }
 
     axios({
       method: 'post',
       url: url,
       responseType: 'text',
-      params: defined_params,
-      data: this.expression.value
+      params: this._getDefinedParams(),
+      data: expression
     })
     .then(response => {
       this.setState({
-        evaluatedStr: response.data
-      });
+        evaluatedExpression: response.data
+      })
     })
     .catch(err => {
       console.log(err);
     });
   }
 
+  _handleParamsChange(newParams) {
+    console.log(`37: newParams = ${JSON.stringify(newParams)}`);
+    console.log(`38: this.state.params = ${JSON.stringify(this.state.params)}`);
+    for (let param in this.state.params) {
+      let oldValue = this.state.params[param];
+      let newValue = newParams[param];
+      if(oldValue && oldValue !== '' && newValue) {
+        console.log(`param: ${param}, oldValue: ${oldValue}, newValue: ${newValue}`)
+        newParams[param] = oldValue;
+      }
+    }
+    this.setState({
+      params: newParams
+    });
+    console.log(`49: newParams = ${JSON.stringify(newParams)}`);
+    console.log(`50: this.state.params = ${JSON.stringify(this.state.params)}`);
+  }
+
   render() {
     return (
       <div className="Expressions">
-        <form onSubmit={this._handleSubmit}>
-          <input type="text" ref={input => this.expression = input} onChange={this._handleChange}/>
-          <button type="submit">Evaluate</button>
-        </form>
-        <Parameters params={this.state.params} _handleParamsChange={this._handleParamsChange}/>
-        <p className="evaluatedStr">{this.state.evaluatedStr}</p>
+        <ExpressionForm _handleSubmit={this._handleSubmit}
+          _handleParamsChange={this._handleParamsChange} />
+        <Parameters params={this.state.params}
+          _handleOneParamChange={this._handleOneParamChange}/>
+        <p className="evaluatedStr">{this.state.evaluatedExpression}</p>
       </div>
     );
   }
