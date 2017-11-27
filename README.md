@@ -7,7 +7,7 @@ react:
 - expression testing area - fold away when not in use?
   - add 'param' class to text inside input?
   - add hover effect on param menu items to highlight .param text inside input
-- text area input for raw svg file
+- replace svg input box with code mirror in xml mode
 - detect parameters button
   - use javascript to detect params in text
   - generate params menu
@@ -18,5 +18,5 @@ react:
   - hits ruby back end
   - saves result to svg/param_sets/:id/result in firebase
 - output svg
-  - use javascript to remap @if to mouseover/label text
+  - have server side script remap @if to mouseover/label text
 - link to github project

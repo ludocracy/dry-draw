@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './Svg.css';
+import '../css/Svg.css';
 import SVGInline from "react-svg-inline";
 import Parameters from './Parameters';
 
@@ -24,7 +24,8 @@ class Svg extends Component {
     return (
       <div className="Svg">
         <h2>paste raw SVG XML here:</h2>
-        <input type='textarea' onChange={this._handleChange} ref={input => this.inputRef = input}/>
+        <textarea wrap="hard" onChange={this._handleChange}
+          ref={input => this.inputRef = input}/>
         <Parameters />
         <SVGInline svg={this.state.svg} />
       </div>
