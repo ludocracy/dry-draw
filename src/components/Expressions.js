@@ -50,8 +50,8 @@ class Expressions extends Component {
 
   _handleSubmit(e) {
     e.preventDefault();
-    // const url = 'https://duxml.herokuapp.com/evaluateStr';
-    const url = 'http://localhost:4567/evaluateStr';
+    const url = 'https://duxml.herokuapp.com/evaluateStr';
+    // const url = 'http://localhost:4567/evaluateStr';
     let defined_params = {}
     for (let key in this.state.params) {
       if (this.state.params[key] !== null) {
