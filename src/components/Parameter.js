@@ -9,7 +9,9 @@ class Parameter extends Component {
   }
 
   _handleChange(e) {
-    this.props._handleParamsChange(this.props.param, this.inputRef.value);
+    let newParam = {}
+    newParam[this.props.param] = this.inputRef.value;
+    this.props._handleParamsChange(newParam);
   }
 
   render() {

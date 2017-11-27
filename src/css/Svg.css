@@ -1,4 +1,6 @@
-.Svg textarea {
-  height: 200px;
-  width: 400px;
+.Editor {
+  height: 40%;
+  width: 80%;
+  border: 2px solid black;
+  text-align: left;
 }
