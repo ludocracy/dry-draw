@@ -71,8 +71,8 @@ class Editor extends Component {
 
   _handleSubmit(e) {
     e.preventDefault();
-    // const url = 'https://duxml.herokuapp.com/resolveXML';
-    const url = 'http://localhost:4567/resolveXML';
+    const url = 'https://duxml.herokuapp.com/resolveXML';
+    // const url = 'http://localhost:4567/resolveXML';
 
     axios({
       method: 'post',
