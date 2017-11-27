@@ -14,6 +14,7 @@ class Svg extends Component {
     }
 
     this._handleParamsChange = this._handleParamsChange.bind(this);
+    this._handleOneParamChange = this._handleOneParamChange.bind(this);
     this._setSvg = this._setSvg.bind(this);
   }
 
@@ -24,11 +25,21 @@ class Svg extends Component {
   }
 
   _handleParamsChange(newParams) {
-    let updatedParams = this.state.params;
-    for (let param in newParams) {
-      let newValue = newParams[param]
-      updatedParams[param] = newValue === '' ? updatedParams[param] : newValue;
+    for (let param in this.state.params) {
+      let oldValue = this.state.params[param];
+      let newValue = newParams[param];
+      if(oldValue && oldValue !== '' && newValue && newValue === '') {
+        newParams[param] = oldValue;
+      }
     }
+    this.setState({
+      params: newParams
+    });
+  }
+
+  _handleOneParamChange(param, value) {
+    let updatedParams = this.state.params;
+    updatedParams[param] = value;
     this.setState({
       params: updatedParams
     });
@@ -41,7 +52,8 @@ class Svg extends Component {
         <h2>paste raw SVG XML here:</h2>
         <Editor params={this.state.params} _setSvg={this._setSvg}
           _handleParamsChange={this._handleParamsChange}/>
-        <Parameters params={this.state.params} _handleParamsChange={this._handleParamsChange} />
+        <Parameters params={this.state.params}
+          _handleOneParamChange={this._handleOneParamChange} />
         <SVGInline svg={this.state.outputSvg} />
       </div>
     );

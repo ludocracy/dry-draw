@@ -9,16 +9,15 @@ class Parameter extends Component {
   }
 
   _handleChange(e) {
-    let newParam = {}
-    newParam[this.props.param] = this.inputRef.value;
-    this.props._handleParamsChange(newParam);
+    this.props._handleOneParamChange(this.props.param, this.inputRef.value);
   }
 
   render() {
     return (
       <div className="Parameter">
         <span>{this.props.param}</span>
-        <input onChange={this._handleChange} type="text" ref={input => this.inputRef = input} placeholder={this.props.value}/>
+        <input onChange={this._handleChange} type="text"
+          ref={input => this.inputRef = input} placeholder={this.props.value}/>
       </div>
     );
   }

@@ -8,7 +8,7 @@ class Parameters extends Component {
     let key = 0;
     for (let param in this.props.params) {
       parameterComps.push(
-        <Parameter _handleParamsChange={this.props._handleParamsChange}
+        <Parameter _handleOneParamChange={this.props._handleOneParamChange}
           param={param} key={key} value={this.props.params[param]} />
       );
       key++;
