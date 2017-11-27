@@ -5,11 +5,13 @@ import Parameter from './Parameter';
 class Parameters extends Component {
   render() {
     let parameterComps = [];
+    let key = 0;
     for (let param in this.props.params) {
       parameterComps.push(
         <Parameter _handleParamsChange={this.props._handleParamsChange}
-          param={param} value={this.props.params[param]} />
+          param={param} key={key} value={this.props.params[param]} />
       );
+      key++;
     }
 
     return (
