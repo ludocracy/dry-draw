@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 // import './ExpressionForm.css';
-import axios from 'axios';
 
 class ExpressionForm extends Component {
   constructor(props) {

@@ -24,7 +24,7 @@ class Expressions extends Component {
     let defined_params = {}
     for (let key in this.state.params) {
       if (this.state.params[key] !== null) {
-        defined_params[key] = this.props.params[key];
+        defined_params[key] = this.state.params[key];
       }
     }
     return defined_params;
@@ -39,8 +39,8 @@ class Expressions extends Component {
   }
 
   _handleSubmit(expression) {
-    const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/evaluateStr';
-    // const url = 'http://localhost:4567/evaluateStr';
+    // const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/evaluateStr';
+    const url = 'http://localhost:4567/evaluateStr';
 
     axios({
       method: 'post',
@@ -60,8 +60,6 @@ class Expressions extends Component {
   }
 
   _handleParamsChange(newParams) {
-    console.log(`37: newParams = ${JSON.stringify(newParams)}`);
-    console.log(`38: this.state.params = ${JSON.stringify(this.state.params)}`);
     for (let param in this.state.params) {
       let oldValue = this.state.params[param];
       let newValue = newParams[param];
@@ -73,8 +71,6 @@ class Expressions extends Component {
     this.setState({
       params: newParams
     });
-    console.log(`49: newParams = ${JSON.stringify(newParams)}`);
-    console.log(`50: this.state.params = ${JSON.stringify(this.state.params)}`);
   }
 
   render() {
