@@ -72,8 +72,18 @@ class Expressions extends Component {
   }
 
   render() {
+    let instructions = `
+Type a logical expression. Any identifiers (e.g. "variable") will appear in the parameters menu.
+Click "Evaluate" to simplify the expression using the parameter values you provide.
+Parameter values can be numbers, boolean, strings (must use double quotes) or another parameter.
+Supported operators include: + - * / ** < > <= >= == != ?:
+    `
     return (
       <div className="Expressions">
+        <h2>Test expressions here</h2>
+        <p className="expression-instructions">
+          { instructions }
+        </p>
         <ExpressionForm _handleSubmit={this._handleSubmit}
           _handleParamsChange={this._handleParamsChange} />
         <Parameters params={this.state.params}

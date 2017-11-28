@@ -75,9 +75,18 @@ class Svg extends Component {
 
 
   render() {
+    let instructions = `
+Paste a raw SVG file here. Any attribute value or string content can contain a logical expression.
+Expressions must be wrapped with @(...). Click 'Resolve XML' to evaluate logical expressions and produce a permutation of the original SVG.
+Any parameters without values will be passed to the output.
+The user of your generated SVG can provide that value themselves, or not!
+    `
     return (
       <div className="Svg">
-        <h2>paste raw SVG XML here:</h2>
+        <h2>Edit SVG here</h2>
+        <p className="svg-instructions">
+          { instructions }
+        </p>
         <Editor _handleSubmit={this._handleSubmit}
           _handleParamsChange={this._handleParamsChange}/>
         <Parameters params={this.state.params}
