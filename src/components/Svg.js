@@ -40,11 +40,11 @@ class Svg extends Component {
       url: url,
       responseType: 'text',
       params: this._getDefinedParams(),
-      data: this.state.svg
+      data: svg
     })
     .then(response => {
       this.setState({
-        outputSvg: svg
+        outputSvg: response.data
       });
     })
     .catch(err => {
