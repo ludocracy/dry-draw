@@ -32,15 +32,15 @@ class Svg extends Component {
   }
 
   _handleSubmit(svg) {
-    const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/resolveXML';
-    // const url = 'http://localhost:4567/resolveXML';
+    // const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/resolveXML';
+    const url = 'http://localhost:4567/resolveXML';
 
     axios({
       method: 'post',
       url: url,
       responseType: 'text',
       params: this._getDefinedParams(),
-      data: svg
+      data: {xml: svg}
     })
     .then(response => {
       this.setState({
