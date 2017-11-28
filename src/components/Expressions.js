@@ -39,8 +39,8 @@ class Expressions extends Component {
   }
 
   _handleSubmit(expression) {
-    // const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/evaluateStr';
-    const url = 'http://localhost:4567/evaluateStr';
+    const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/evaluateStr';
+    // const url = 'http://localhost:4567/evaluateStr';
     axios({
       method: 'post',
       url: url,
