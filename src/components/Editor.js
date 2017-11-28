@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import CodeMirror from 'react-codemirror';
 import '../../node_modules/codemirror/lib/codemirror.css';
 require('codemirror/mode/xml/xml');
@@ -21,32 +20,27 @@ class Editor extends Component {
 
     this._handleChange = this._handleChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
-    this._getDefinedParams = this._getDefinedParams.bind(this);
+    this._extractParams = this._extractParams.bind(this);
   }
 
   componentDidMount() {
     this._handleChange();
   }
 
-  _getDefinedParams() {
-    let defined_params = {}
-    for (let key in this.props.params) {
-      let value = this.props.params[key];
-      if (value && value !== '') {
-        defined_params[key] = value
-      }
-    }
-    return defined_params;
+  _handleSubmit(e) {
+    e.preventDefault();
+
+    this.props._handleSubmit(this.state.svg);
   }
 
-  _extractParams(str) {
+  _extractParams() {
     let macroRegex = /@\(.+\)/g;
     let paramRegex = /(?:(?!true|false))\b([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
     let macroMatch;
     let params = {};
 
     do { // iterate through macro string matches
-      macroMatch = macroRegex.exec(str);
+      macroMatch = macroRegex.exec(this.state.svg);
       if (macroMatch) {
         let paramMatch;
         do { // iterate through param matches within this macro string
@@ -65,28 +59,8 @@ class Editor extends Component {
       svg: newSvg || this.state.svg
     });
 
-    let newParams = this._extractParams(this.state.svg);
+    let newParams = this._extractParams();
     this.props._handleParamsChange(newParams);
-  }
-
-  _handleSubmit(e) {
-    e.preventDefault();
-    const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/resolveXML';
-    // const url = 'http://localhost:4567/resolveXML';
-
-    axios({
-      method: 'post',
-      url: url,
-      responseType: 'text',
-      params: this._getDefinedParams(),
-      data: this.state.svg
-    })
-    .then(response => {
-      this.props._setSvg(response.data)
-    })
-    .catch(err => {
-      console.log(err);
-    });
   }
 
   render() {

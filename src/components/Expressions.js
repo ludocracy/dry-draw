@@ -39,8 +39,8 @@ class Expressions extends Component {
   }
 
   _handleSubmit(expression) {
-    // const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/evaluateStr';
-    const url = 'http://localhost:4567/evaluateStr';
+    const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/evaluateStr';
+    // const url = 'http://localhost:4567/evaluateStr';
 
     axios({
       method: 'post',
@@ -60,11 +60,10 @@ class Expressions extends Component {
   }
 
   _handleParamsChange(newParams) {
-    for (let param in this.state.params) {
+    for (let param in newParams) {
       let oldValue = this.state.params[param];
-      let newValue = newParams[param];
-      if(oldValue && oldValue !== '' && newValue) {
-        console.log(`param: ${param}, oldValue: ${oldValue}, newValue: ${newValue}`)
+      if(oldValue && oldValue !== '') {
+        console.log(`param: ${param}, oldValue: ${oldValue}`)
         newParams[param] = oldValue;
       }
     }
