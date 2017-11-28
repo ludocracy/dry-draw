@@ -11,7 +11,8 @@ class Svg extends Component {
 
     this.state = {
       params: {},
-      outputSvg: ''
+      outputSvg: '',
+      hoverText: ''
     }
 
     this._handleParamsChange = this._handleParamsChange.bind(this);
@@ -73,6 +74,22 @@ class Svg extends Component {
     });
   }
 
+  componentDidUpdate() {
+    if(this.state.outputSvg !== '') {
+      document.querySelectorAll('[if]').forEach(el => {
+        el.addEventListener('mouseenter', e => {
+          this.setState({
+            hoverText: el.getAttribute('if')
+          });
+        });
+        el.addEventListener('mouseleave', e => {
+          this.setState({
+            hoverText: ''
+          });
+        });
+      });
+    }
+  }
 
   render() {
     return (
@@ -83,6 +100,7 @@ class Svg extends Component {
         <Parameters params={this.state.params}
           _handleOneParamChange={this._handleOneParamChange} />
         <SVGInline svg={this.state.outputSvg} />
+        <p><span>Hovered element exists when: </span><span>{this.state.hoverText}</span></p>
       </div>
     );
   }

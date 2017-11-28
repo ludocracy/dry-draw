@@ -1,6 +1,19 @@
-.Editor {
-  height: 40%;
-  width: 80%;
+.Svg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.CodeMirror {
+  height: 220px;
+  width: 600px;
   border: 2px solid black;
   text-align: left;
+}
+
+[if] {
+  stroke: #646464;
+  stroke-width:3px;
+  stroke-dasharray: 2,2;
+  stroke-linejoin: round;
 }
