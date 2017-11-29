@@ -5,12 +5,30 @@ import Expressions from './components/Expressions';
 import Svg from './components/Svg';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isHover: false
+    };
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">DRY Draw</h1>
-          <h2>Don't Repeat Yourself</h2>
+        <header className="App-header"
+          onMouseEnter={e => this.setState({isHover: true})}
+          onMouseLeave={e => this.setState({isHover: false})}>
+          <h1 className="App-title">
+            <span className={this.state.isHover ? "letter0" : ''}>D</span>
+            <span className={this.state.isHover ? "letter1" : ''}>R</span>
+            <span className={this.state.isHover ? "letter2" : ''}>Y</span>
+            Draw
+          </h1>
+          <h2>
+            <span className={this.state.isHover ? "letter0" : ''}>Don't </span>
+            <span className={this.state.isHover ? "letter1" : ''}>Repeat </span>
+            <span className={this.state.isHover ? "letter2" : ''}>Yourself</span>
+          </h2>
         </header>
         <Expressions />
         <Svg />
