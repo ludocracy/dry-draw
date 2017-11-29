@@ -72,17 +72,16 @@ class Expressions extends Component {
   }
 
   render() {
-    let instructions = `
-Type a logical expression. Any identifiers (e.g. "variable") will appear in the parameters menu.
-Click "Evaluate" to simplify the expression using the parameter values you provide.
-Parameter values can be numbers, boolean, strings (must use double quotes) or another parameter.
-Supported operators include: + - * / ** < > <= >= == != ?:
-    `
+    let instructions = [
+'Any parameter names (e.g. "variable") will appear in the parameters menu.',
+'Parameter values can be numbers, boolean, strings (in quotes) or a parameter.',
+'Supported operators include: + - * / ** < > <= >= == != ?:'
+].map((instruction, index) => (<p key={index}>{instruction}</p>));
 
     let instructionsClass = Object.keys(this.state.params).length === 0
       ? 'hidden'
       : 'expression-params-instructions';
-      
+
     return (
       <div className="Expressions">
         <div className="expression-container">
@@ -93,9 +92,9 @@ Supported operators include: + - * / ** < > <= >= == != ?:
             value={this.state.evaluatedExpression}/>
         </div>
         <div className={instructionsClass}>
-          <p className="expression-instructions">
+          <div className="expression-instructions">
             { instructions }
-          </p>
+          </div>
           <Parameters params={this.state.params}
             _handleOneParamChange={this._handleOneParamChange}/>
         </div>
