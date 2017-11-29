@@ -78,17 +78,26 @@ Click "Evaluate" to simplify the expression using the parameter values you provi
 Parameter values can be numbers, boolean, strings (must use double quotes) or another parameter.
 Supported operators include: + - * / ** < > <= >= == != ?:
     `
+      console.log(JSON.stringify(this.state.params))
+    let instructionsClass = Object.keys(this.state.params).length === 0
+      ? 'hidden'
+      : 'expression-params-instructions';
     return (
       <div className="Expressions">
-        <h2>Test expressions here</h2>
-        <p className="expression-instructions">
-          { instructions }
-        </p>
-        <ExpressionForm _handleSubmit={this._handleSubmit}
-          _handleParamsChange={this._handleParamsChange} />
-        <Parameters params={this.state.params}
-          _handleOneParamChange={this._handleOneParamChange}/>
-        <p className="evaluatedStr">{this.state.evaluatedExpression}</p>
+        <div className="expression-container">
+          <h2>Test expressions:</h2>
+          <ExpressionForm _handleSubmit={this._handleSubmit}
+            _handleParamsChange={this._handleParamsChange} />
+          <input className="evaluatedStr" readOnly="true"
+            value={this.state.evaluatedExpression}/>
+        </div>
+        <div className={instructionsClass}>
+          <p className="expression-instructions">
+            { instructions }
+          </p>
+          <Parameters params={this.state.params}
+            _handleOneParamChange={this._handleOneParamChange}/>
+        </div>
       </div>
     );
   }

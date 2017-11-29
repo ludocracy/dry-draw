@@ -1,0 +1,36 @@
+.ExpressionForm {
+}
+
+.expression-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.expression-input {
+  margin: 10px;
+  height: 30px;
+  width: 200px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.expression-btn {
+  margin: 10px;
+  height: 35px;
+  width: 100px;
+  background-color: pink;
+  font-size: 24px;
+  padding: 0;
+}
+
+.expression-btn:active {
+  background-color: red;
+}
+
+.evaluatedStr {
+  margin: 10px;
+  height: 30px;
+  text-align: center;
+  font-size: 18px;
+}

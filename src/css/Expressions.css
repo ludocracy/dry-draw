@@ -1,0 +1,26 @@
+.Expressions h2 {
+  font-size: 20px;
+}
+
+.expression-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.hidden {
+  visibility: hidden;
+  height: 0;
+}
+
+.expression-params-instructions {
+  display: flex;
+  flex-direction: row;
+}
+
+.expression-instructions {
+  flex: 2;
+  margin: 10px;
+}

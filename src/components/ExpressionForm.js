@@ -37,10 +37,10 @@ class ExpressionForm extends Component {
   render() {
     return (
       <div className="ExpressionForm">
-        <form onSubmit={this._handleSubmit}>
-          <input type="text" ref={input => this.expression = input}
+        <form className="expression-form" onSubmit={this._handleSubmit}>
+          <input className="expression-input" type="text" ref={input => this.expression = input}
             onChange={this._handleChange}/>
-          <button type="submit">Evaluate</button>
+          <button className="expression-btn" type="submit">=</button>
         </form>
       </div>
     );
