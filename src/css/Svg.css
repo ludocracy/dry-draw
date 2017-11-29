@@ -4,13 +4,6 @@
   align-items: center;
 }
 
-.CodeMirror {
-  height: 220px;
-  width: 600px;
-  border: 2px solid black;
-  text-align: left;
-}
-
 [if] {
   stroke: #646464;
   stroke-width:3px;

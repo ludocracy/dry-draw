@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
+import '../css/Editor.css';
 import '../../node_modules/codemirror/lib/codemirror.css';
 require('codemirror/mode/xml/xml');
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './Parameter.css';
+import '../css/Parameter.css';
 
 class Parameter extends Component {
   constructor(props) {

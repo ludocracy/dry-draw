@@ -1,0 +1,6 @@
+.CodeMirror {
+  height: 220px;
+  width: 600px;
+  border: 2px solid black;
+  text-align: left;
+}

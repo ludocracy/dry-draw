@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './Expressions.css';
+import '../css/Expressions.css';
 import axios from 'axios';
 
 import Parameters from './Parameters';
