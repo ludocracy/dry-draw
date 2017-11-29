@@ -78,10 +78,11 @@ Click "Evaluate" to simplify the expression using the parameter values you provi
 Parameter values can be numbers, boolean, strings (must use double quotes) or another parameter.
 Supported operators include: + - * / ** < > <= >= == != ?:
     `
-      console.log(JSON.stringify(this.state.params))
+
     let instructionsClass = Object.keys(this.state.params).length === 0
       ? 'hidden'
       : 'expression-params-instructions';
+      
     return (
       <div className="Expressions">
         <div className="expression-container">

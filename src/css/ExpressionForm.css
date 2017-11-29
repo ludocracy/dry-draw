@@ -19,13 +19,20 @@
   margin: 10px;
   height: 35px;
   width: 100px;
-  background-color: pink;
+  background-color: #FFC2E2;
   font-size: 24px;
   padding: 0;
+  box-shadow: 3px 3px 1px #888888;
+  outline: 0;
 }
 
 .expression-btn:active {
-  background-color: red;
+  background-color: #EF7A85;
+  box-shadow: 0px 0px 0px #888888;
+}
+
+.expression-btn:hover {
+  background-color: #FF90B3;
 }
 
 .evaluatedStr {

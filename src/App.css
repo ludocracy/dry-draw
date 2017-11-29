@@ -7,7 +7,7 @@
   background-color: #222;
   height: 80px;
   padding: 20px;
-  color: white;
+  color: #FFC2E2;
 }
 
 h2 {
@@ -43,7 +43,7 @@ h2 {
     color: white;
   }
   33% {
-    color: red;
+    color: #EF7A85;
   }
   67% {
     color: white;
@@ -61,7 +61,7 @@ h2 {
     color: white;
   }
   67% {
-    color: red;
+    color: #EF7A85;
   }
   100% {
     color: white;
@@ -79,6 +79,6 @@ h2 {
     color: white;
   }
   100% {
-    color: red;
+    color: #EF7A85;
   }
 }
