@@ -9,6 +9,7 @@ class Editor extends Component {
     super(props);
 
     this.state = {
+      buttonColor: "#FF90B3",
       svg: `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" width="272" height="92">
   <text x="100" y="20" font-family="Verdana" font-size="10">
@@ -74,7 +75,12 @@ class Editor extends Component {
         <form onSubmit={this._handleSubmit}>
           <CodeMirror onChange={this._handleChange}
             options={{mode: 'xml'}} value={this.state.svg}/>
-          <button type="submit">Resolve XML</button>
+          <button type="submit"
+            onMouseDown={e => this.setState({buttonColor: '#EF7A85'})}
+            onMouseUp={e => this.setState({buttonColor: '#FFC2E2'})}
+            onMouseEnter={e => this.setState({buttonColor: '#FFC2E2'})}
+            onMouseLeave={e => this.setState({buttonColor: '#FF90B3'})}
+            style={{backgroundColor: this.state.buttonColor}}>Render SVG</button>
         </form>
       </div>
     );

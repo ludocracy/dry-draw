@@ -6,7 +6,7 @@ class ExpressionForm extends Component {
     super(props);
 
     this.state = {
-      buttonColor: '#FFC2E2'
+      buttonColor: '#FF90B3'
     }
 
     this._extractParams = this._extractParams.bind(this);

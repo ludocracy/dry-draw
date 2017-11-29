@@ -2,3 +2,8 @@
   margin: 10px;
   flex: 1;
 }
+
+.Parameters h3 {
+  color: #EF7A85;
+  font-size: 18px;
+}

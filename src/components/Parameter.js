@@ -19,7 +19,8 @@ class Parameter extends Component {
   render() {
     return (
       <div className="Parameter">
-        <span>{this.props.param}</span>
+        <span className="param-name">{this.props.param}</span>
+        <span className="equal-sign"> = </span>
         <input onChange={this._handleChange} type="text"
           ref={input => this.inputRef = input} placeholder={this.props.value}
           value={this.props.value || ''} />

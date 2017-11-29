@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Svg.css';
-import SVGInline from "react-svg-inline";
+import Output from './Output';
 import Parameters from './Parameters';
 import Editor from './Editor';
 import axios from 'axios';
@@ -11,7 +11,8 @@ class Svg extends Component {
 
     this.state = {
       params: {},
-      outputSvg: '',
+      outputSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" width="272" height="92">
+      </svg>`,
       hoverText: ''
     }
 
@@ -92,24 +93,16 @@ class Svg extends Component {
   }
 
   render() {
-    let instructions = `
-Paste a raw SVG file here. Any attribute value or string content can contain a logical expression.
-Expressions must be wrapped with @(...). Click 'Resolve XML' to evaluate logical expressions and produce a permutation of the original SVG.
-Any parameters without values will be passed to the output.
-The user of your generated SVG can provide that value themselves, or not!
-    `
     return (
       <div className="Svg">
-        <h2>Edit SVG here</h2>
-        <p className="svg-instructions">
-          { instructions }
-        </p>
-        <Editor _handleSubmit={this._handleSubmit}
-          _handleParamsChange={this._handleParamsChange}/>
-        <Parameters params={this.state.params}
-          _handleOneParamChange={this._handleOneParamChange} />
-        <SVGInline svg={this.state.outputSvg} />
-        <p><span>Hovered element exists when: </span><span>{this.state.hoverText}</span></p>
+        <h2>Paste SVG file here. Wrap logical expressions in @(...).</h2>
+        <div className="svg-container">
+          <Editor _handleSubmit={this._handleSubmit}
+            _handleParamsChange={this._handleParamsChange} />
+          <Parameters params={this.state.params}
+            _handleOneParamChange={this._handleOneParamChange} />
+          <Output hoverText={this.state.hoverText} svg={this.state.outputSvg} />
+        </div>
       </div>
     );
   }

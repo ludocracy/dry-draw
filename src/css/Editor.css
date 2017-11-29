@@ -1,6 +1,25 @@
 .CodeMirror {
+  flex: 4;
   height: 220px;
-  width: 600px;
-  border: 2px solid black;
+  width: 400px;
+  border: 2px solid #EF7A85;
   text-align: left;
+}
+
+.Editor button {
+  width: 400px;
+  height: 35px;
+  font-size: 24px;
+  padding: 0;
+  box-shadow: 3px 3px 1px #888888;
+  outline: 0;
+  color: white;
+}
+
+.Editor button:active {
+  box-shadow: 0px 0px 0px #888888;
+}
+
+.SVGInline-svg {
+  border: 2px solid #EF7A85;
 }

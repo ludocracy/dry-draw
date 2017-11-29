@@ -16,6 +16,7 @@ class Parameters extends Component {
 
     return (
       <div className="Parameters">
+        <h3>Parameters/Values</h3>
         { parameterComps }
       </div>
     );

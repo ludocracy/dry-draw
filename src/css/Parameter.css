@@ -1,0 +1,19 @@
+.Parameter {
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.param-name {
+  flex: 3;
+  text-align: right;
+}
+
+.equal-sign {
+  flex: 1;
+}
+
+.Parameter input {
+  flex: 3;
+  text-align: center;
+}
