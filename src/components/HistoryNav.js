@@ -1,31 +1,31 @@
 import React, { Component } from 'react';
 // import './HistoryNav.css';
 import SvgNavItem from './SvgNavItem';
+// import { database } from '../utils/firebase';
 
 class HistoryNav extends Component {
   constructor(props) {
     super(props);
 
-    this._handleChange = this._handleChange.bind(this);
-  }
-
-  _handleChange(e) {
-    this.props._handleOneParamChange(this.props.param, this.inputRef.value);
-  }
-
-  componentWillUpdate(nextProps) {
-
+    this.state = {
+      history: []
+    };
   }
 
   render() {
-    let historySvgComps = this.props.history.map((historyItem, index) => (
-      <SvgNavItem svgItem={historyItem} key={index} />
+    let isCurrent = this.props.params === historyItem.params
+      && this.props.currentSvg === historyItem.Svg;
+    let historySvgComps = this.state.history.map((historyItem, index) => (
+      <SvgNavItem isCurrent={isCurrent}
+        _handleTimeTravel={this.props._handleTimeTravel} svgItem={historyItem} key={index} />
     ));
 
     return (
       <div className="HistoryNav">
       <p>History</p>
+      <div className="history-container">
         { historySvgComps }
+      </div>
       </div>
     );
   }

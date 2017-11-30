@@ -3,6 +3,7 @@ import '../css/Svg.css';
 import Output from './Output';
 import Parameters from './Parameters';
 import Editor from './Editor';
+import HistoryNav from './HistoryNav';
 import axios from 'axios';
 
 class Svg extends Component {
@@ -20,6 +21,14 @@ class Svg extends Component {
     this._handleOneParamChange = this._handleOneParamChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
     this._getDefinedParams = this._getDefinedParams.bind(this);
+    this._handleTimeTravel = this._handleTimeTravel.bind(this);
+  }
+
+  _handleTimeTravel(currentSvg, params) {
+    this.setState({
+      currentSvg: currentSvg,
+      params: params
+    });
   }
 
   _getDefinedParams() {
@@ -103,6 +112,7 @@ class Svg extends Component {
             _handleOneParamChange={this._handleOneParamChange} />
           <Output hoverText={this.state.hoverText} svg={this.state.outputSvg} />
         </div>
+        <HistoryNav currentSvg={this.state.outputSvg} _handleTimeTravel={this._handleTimeTravel}/>
       </div>
     );
   }
