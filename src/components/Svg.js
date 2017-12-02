@@ -78,14 +78,9 @@ class Svg extends Component {
   componentDidUpdate() {
     if(this.state.outputSvg !== '') {
       document.querySelectorAll('[if]').forEach(el => {
-        el.addEventListener('mouseenter', e => {
+        el.addEventListener('mouseover', e => {
           this.setState({
             hoverText: el.getAttribute('if')
-          });
-        });
-        el.addEventListener('mouseleave', e => {
-          this.setState({
-            hoverText: ''
           });
         });
       });
