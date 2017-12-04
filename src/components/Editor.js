@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import CodeMirror from 'react-codemirror';
 import '../css/Editor.css';
-import '../../node_modules/codemirror/lib/codemirror.css';
-require('codemirror/mode/xml/xml');
+import Designer from './designer/Designer';
 
 class Editor extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      objects: [],
       buttonColor: "#FF90B3",
       svg: `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" width="272" height="92">
@@ -27,10 +26,6 @@ class Editor extends Component {
     this._handleChange = this._handleChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
     this._extractParams = this._extractParams.bind(this);
-  }
-
-  componentDidMount() {
-    this._handleChange();
   }
 
   _handleSubmit(e) {
@@ -60,9 +55,15 @@ class Editor extends Component {
     return params;
   }
 
-  _handleChange(newSvg) {
+  _handleChange(objects) {
+    let gChildren = objects.map(object => (
+      `<g />`
+    ))
+    let newSvg = `<svg>${gChildren.join('\n')}</svg>`;
+
     this.setState({
-      svg: newSvg || this.state.svg
+      objects: objects,
+      svg: newSvg // TODO this should just be a method! why are we making it state?
     });
 
     let newParams = this._extractParams();
@@ -73,8 +74,8 @@ class Editor extends Component {
     return (
       <div className="Editor">
         <form onSubmit={this._handleSubmit}>
-          <CodeMirror onChange={this._handleChange}
-            options={{mode: 'xml'}} value={this.state.svg}/>
+          <Designer width={400} height={400} objects={this.state.objects}
+          onUpdate={this._handleChange} />
           <button type="submit"
             onMouseDown={e => this.setState({buttonColor: '#EF7A85'})}
             onMouseUp={e => this.setState({buttonColor: '#FFC2E2'})}
