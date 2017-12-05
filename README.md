@@ -33,6 +33,10 @@ You can embed logical expressions wrapped in @(...) into @if attributes and stri
 ## Future development
 - Front-end
   - Replace XML editor with visual SVG editor
+    - obj to xml conversion and reverse
+    - test param detection
+    - add if statement editor
+    - remove most context menu panels
   - User authentication
   - Save history of SVG transforms to Firebase
   - Navigate through transform history
