@@ -75,18 +75,6 @@ class Svg extends Component {
     });
   }
 
-  // componentDidUpdate() {
-  //   if(this.state.outputSvg !== '') {
-  //     document.querySelectorAll('[if]').forEach(el => {
-  //       el.addEventListener('mouseover', e => {
-  //         this.setState({
-  //           hoverText: el.getAttribute('if')
-  //         });
-  //       });
-  //     });
-  //   }
-  // }
-
   render() {
     return (
       <div className="Svg">
@@ -96,7 +84,7 @@ class Svg extends Component {
             _handleParamsChange={this._handleParamsChange} />
           <Parameters params={this.state.params}
             _handleOneParamChange={this._handleOneParamChange} />
-          <Output hoverText={this.state.hoverText} svg={this.state.outputSvg} />
+          <Output svg={this.state.outputSvg} />
         </div>
       </div>
     );

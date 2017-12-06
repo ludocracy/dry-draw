@@ -24,7 +24,7 @@ You can embed logical expressions wrapped in @(...) into @if attributes and stri
 - React.js
 - Sinatra
 - [ReDuxml](https://github.com/ludocracy/ReDuxml) - I wrote this a while ago and this app is a showcase for its features
-- CodeMirror
+- [React-Designer](https://github.com/ludocracy/react-designer) - My fork of an unmaintained [project by Fatih Erikli](https://github.com/fatiherikli/react-designer)
 - SVGInline
 - axios
 - Firebase for front-end deployment
@@ -43,6 +43,8 @@ You can embed logical expressions wrapped in @(...) into @if attributes and stri
   - Let user define default parameter values
   - Better transitions for unneeded parts of interface
   - More built in examples
+  - Allow SVGs of any size
+  - Re-incorporate other SVG editing features from original React-Designer
 - Back-end
   - Back end is seeing a mysterious query param: {“captures”: []}
   - Support more string operations

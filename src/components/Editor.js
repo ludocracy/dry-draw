@@ -118,6 +118,7 @@ class Editor extends Component {
   _handleSubmit(e) {
     e.preventDefault();
 
+    console.log(this.state.svg)
     this.props._handleSubmit(this.state.svg);
   }
 
@@ -142,8 +143,14 @@ class Editor extends Component {
     return params;
   }
 
+  componentDidMount() {
+    this.setState({
+      svg: this._getSVG()
+    });
+  }
+
   _handleChange(objects) {
-    let svg = this._obj2Svg(objects);
+    let svg = this._getSVG();
     this.setState({
       objects: objects,
       svg: svg
@@ -153,11 +160,8 @@ class Editor extends Component {
     this.props._handleParamsChange(newParams);
   }
 
-  _obj2Svg(objects) { // TODO reuse SVGRenderer code to generate the XML??
-    let gChildren = objects.map(object => (
-      `<g />`
-    ));
-    return `<svg>${gChildren.join('\n')}</svg>`;
+  _getSVG() {
+    return document.querySelector('.designer-container>svg').outerHTML;
   }
 
   render() {

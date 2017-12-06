@@ -507,7 +507,7 @@ class Designer extends Component {
         keyMap={this.keyMap}
         style={styles.keyboardManager}
         handlers={this.getKeymapHandlers()}>
-        <div className={'container'}
+        <div className={'designer-container'}
              style={{
                 ...styles.container,
                 ...this.props.style,
