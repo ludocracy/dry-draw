@@ -144,20 +144,24 @@ class Editor extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      svg: this._getSVG()
-    });
+    this._updateParams();
   }
 
   _handleChange(objects) {
-    let svg = this._getSVG();
     this.setState({
-      objects: objects,
-      svg: svg
+      objects: objects
     });
+    this._updateParams();
+  }
 
+  _updateParams() {
+    let svg = this._getSVG();
     let newParams = this._extractParams(svg);
     this.props._handleParamsChange(newParams);
+
+    this.setState({
+      svg: svg
+    });
   }
 
   _getSVG() {
