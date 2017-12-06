@@ -8,17 +8,16 @@ class Editor extends Component {
 
     this.state = {
       objects: [{
-      "width": 163,
-      "height": 84,
-      "rotate": 0,
-      "strokeWidth": 0,
-      "fill": "rgba(0, 123, 255, 1)",
+      "text": 'Hello @(friend)',
       "radius": "0",
       "blendmode": "normal",
-      "type": "rectangle",
-      "x": 17,
-      "y": 15
+      "type": "text",
+      "x": 100,
+      "y": 50,
+      fontSize: 20,
+      fontFamily: "Helvetica"
     }, {
+      "if": "@(a<b)",
       "width": 70,
       "height": 146,
       "rotate": 0,
@@ -170,6 +169,7 @@ class Editor extends Component {
     return (
       <div className="Editor">
         <form onSubmit={this._handleSubmit}>
+          <h2>Input SVG. Wrap logical expressions in @(...)</h2>
           <Designer width={400} height={400} objects={this.state.objects}
           onUpdate={this._handleChange} />
           <button type="submit"

@@ -77,7 +77,6 @@ class Svg extends Component {
   render() {
     return (
       <div className="Svg">
-        <h2>Paste SVG file here. Wrap logical expressions in @(...).</h2>
         <div className="svg-container">
           <Editor _handleSubmit={this._handleSubmit}
             _handleParamsChange={this._handleParamsChange} />
