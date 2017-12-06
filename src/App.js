@@ -18,17 +18,19 @@ class App extends Component {
         <header className="App-header"
           onMouseEnter={e => this.setState({isHover: true})}
           onMouseLeave={e => this.setState({isHover: false})}>
-          <h1 className="App-title">
-            <span className={this.state.isHover ? "letter0" : ''}>D</span>
-            <span className={this.state.isHover ? "letter1" : ''}>R</span>
-            <span className={this.state.isHover ? "letter2" : ''}>Y</span>
-            Draw
-          </h1>
-          <h2>
-            <span className={this.state.isHover ? "letter0" : ''}>Don't </span>
-            <span className={this.state.isHover ? "letter1" : ''}>Repeat </span>
-            <span className={this.state.isHover ? "letter2" : ''}>Yourself</span>
-          </h2>
+          <a rel="noopener noreferrer" target="_blank" href="https://github.com/ludocracy/duxml-front-end">
+            <h1 className="App-title">
+              <span className={this.state.isHover ? "letter0" : ''}>D</span>
+              <span className={this.state.isHover ? "letter1" : ''}>R</span>
+              <span className={this.state.isHover ? "letter2" : ''}>Y</span>
+              Draw
+            </h1>
+            <h2>
+              <span className={this.state.isHover ? "letter0" : ''}>Don't </span>
+              <span className={this.state.isHover ? "letter1" : ''}>Repeat </span>
+              <span className={this.state.isHover ? "letter2" : ''}>Yourself</span>
+            </h2>
+          </a>
         </header>
         <Expressions />
         <Svg />
