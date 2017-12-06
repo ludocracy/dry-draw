@@ -170,7 +170,7 @@ class Editor extends Component {
       <div className="Editor">
         <form onSubmit={this._handleSubmit}>
           <h2>Input SVG. Wrap logical expressions in @(...)</h2>
-          <Designer width={400} height={400} objects={this.state.objects}
+          <Designer width={350} height={400} objects={this.state.objects}
           onUpdate={this._handleChange} />
           <button type="submit"
             onMouseDown={e => this.setState({buttonColor: '#EF7A85'})}
