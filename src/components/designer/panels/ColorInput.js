@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Radium from 'radium';
 import ColorPicker from 'react-color';
 
-import styles from './styles';
+// import styles from './styles';
 
 class ColorInput extends Component {
   state = {
@@ -51,11 +51,6 @@ class ColorInput extends Component {
           onChange={this.handleChange.bind(this)}
           onClose={this.toggleVisibility.bind(this)}
           type="chrome" />
-        <button href="#"
-         style={styles.colorInput}
-         onClick={this.toggleVisibility.bind(this)}>
-          <span style={[styles.color, {backgroundColor: value}]} />
-         </button>
       </div>
     );
   }

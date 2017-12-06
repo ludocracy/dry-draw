@@ -75,17 +75,17 @@ class Svg extends Component {
     });
   }
 
-  componentDidUpdate() {
-    if(this.state.outputSvg !== '') {
-      document.querySelectorAll('[if]').forEach(el => {
-        el.addEventListener('mouseover', e => {
-          this.setState({
-            hoverText: el.getAttribute('if')
-          });
-        });
-      });
-    }
-  }
+  // componentDidUpdate() {
+  //   if(this.state.outputSvg !== '') {
+  //     document.querySelectorAll('[if]').forEach(el => {
+  //       el.addEventListener('mouseover', e => {
+  //         this.setState({
+  //           hoverText: el.getAttribute('if')
+  //         });
+  //       });
+  //     });
+  //   }
+  // }
 
   render() {
     return (

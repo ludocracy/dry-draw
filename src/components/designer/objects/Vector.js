@@ -1,12 +1,13 @@
 import {Component} from 'react';
 
-import {SizePanel, TextPanel,
-        StylePanel, ArrangePanel} from '../panels';
+import {TextPanel,
+        StylePanel, ArrangePanel, IfPanel} from '../panels';
 
 
 export default class Vector extends Component {
   static panels = [
-    SizePanel,
+    // SizePanel,
+    IfPanel,
     TextPanel,
     StylePanel,
     ArrangePanel
@@ -15,7 +16,7 @@ export default class Vector extends Component {
   getStyle() {
     let {object} = this.props;
     return {
-      mixBlendMode: object.blendMode
+      mixBlendMode: object.blendmode
     }
   }
 
