@@ -1,3 +1,7 @@
+.Editor {
+  margin-right: 200px;
+}
+
 .Editor button {
   width: 400px;
   height: 35px;
@@ -10,8 +14,4 @@
 
 .Editor button:active {
   box-shadow: 0px 0px 0px #888888;
-}
-
-.SVGInline-svg {
-  border: 2px solid #EF7A85;
 }

@@ -113,33 +113,40 @@ class Editor extends Component {
     this._handleChange = this._handleChange.bind(this);
     this._handleSubmit = this._handleSubmit.bind(this);
     this._extractParams = this._extractParams.bind(this);
+    this._updateParams = this._updateParams.bind(this);
   }
 
   _handleSubmit(e) {
     e.preventDefault();
 
-    console.log(this.state.svg)
+    this._updateParams();
+    // console.log(`this.state.svg = ${this.state.svg}`)
     this.props._handleSubmit(this.state.svg);
   }
 
-  _extractParams(svg) {
+  _extractParams() {
+    let params = {};
     let macroRegex = /@\(.+\)/g;
     let paramRegex = /(?:(?!true|false))\b([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
-    let macroMatch;
-    let params = {};
-
-    do { // iterate through macro string matches
-      macroMatch = macroRegex.exec(svg);
-      if (macroMatch) {
-        let paramMatch;
-        do { // iterate through param matches within this macro string
-          paramMatch = paramRegex.exec(macroMatch[0]);
-          if (paramMatch) {
-            params[paramMatch[0]] = null;
+    this.state.objects.forEach(obj => {
+      for (let key in obj) {
+        let macroMatch;
+        let value = obj[key];
+        do { // iterate through macro string matches
+          macroMatch = macroRegex.exec(value);
+          if (macroMatch) {
+            let paramMatch;
+            do { // iterate through param matches within this macro string
+              paramMatch = paramRegex.exec(macroMatch[0]);
+              if (paramMatch) {
+                params[paramMatch[0]] = null;
+              }
+            } while (paramMatch)
           }
-        } while (paramMatch)
+        } while (macroMatch);
       }
-    } while (macroMatch);
+    });
+
     return params;
   }
 
@@ -151,12 +158,13 @@ class Editor extends Component {
     this.setState({
       objects: objects
     });
+    // if() // TODO there's a race condition where the svg in the box
     this._updateParams();
   }
 
   _updateParams() {
     let svg = this._getSVG();
-    let newParams = this._extractParams(svg);
+    let newParams = this._extractParams();
     this.props._handleParamsChange(newParams);
 
     this.setState({

@@ -45,6 +45,7 @@ You can embed logical expressions wrapped in @(...) into @if attributes and stri
   - More built in examples
   - Allow SVGs of any size
   - Re-incorporate other SVG editing features from original React-Designer
+  - Use basic regex parsing to ensure expression is valid
 - Back-end
   - Back end is seeing a mysterious query param: {“captures”: []}
   - Support more string operations
