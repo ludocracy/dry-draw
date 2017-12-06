@@ -58,7 +58,6 @@ class Svg extends Component {
     for (let param in newParams) {
       let oldValue = this.state.params[param];
       if(oldValue && oldValue !== '') {
-        console.log(`param: ${param}, oldValue: ${oldValue}`)
         newParams[param] = oldValue;
       }
     }

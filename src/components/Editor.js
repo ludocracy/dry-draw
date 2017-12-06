@@ -119,14 +119,14 @@ class Editor extends Component {
   _handleSubmit(e) {
     e.preventDefault();
 
-    this._updateParams();
-    // console.log(`this.state.svg = ${this.state.svg}`)
-    this.props._handleSubmit(this.state.svg);
+    let svg = document.querySelector('.designer-container>svg').outerHTML;
+    this.props._handleSubmit(svg);
   }
 
   _extractParams() {
     let params = {};
-    let macroRegex = /@\(.+\)/g;
+    // let macroRegex = /@\(.+\)/g;
+    let macroRegex = /@\(.+/g;
     let paramRegex = /(?:(?!true|false))\b([a-zA-Z_][a-zA-Z0-9_]*)\b/g;
     this.state.objects.forEach(obj => {
       for (let key in obj) {
@@ -158,22 +158,12 @@ class Editor extends Component {
     this.setState({
       objects: objects
     });
-    // if() // TODO there's a race condition where the svg in the box
     this._updateParams();
   }
 
   _updateParams() {
-    let svg = this._getSVG();
     let newParams = this._extractParams();
     this.props._handleParamsChange(newParams);
-
-    this.setState({
-      svg: svg
-    });
-  }
-
-  _getSVG() {
-    return document.querySelector('.designer-container>svg').outerHTML;
   }
 
   render() {
