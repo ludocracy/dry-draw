@@ -11,8 +11,8 @@ export default class IfPanel extends Panel {
     return (
       <PropertyGroup object={object}>
         <Columns label="Exists if">
-          <Column value={object.if}
-            onChange={this.props.onChange.bind(this, 'if')} />
+          <input type="text" value={object.if}
+            onChange={e => this.props.onChange('if', e.target.value)} />
         </Columns>
       </PropertyGroup>
     );

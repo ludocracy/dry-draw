@@ -6,7 +6,7 @@ class Output extends Component {
   render() {
     return (
       <div className="Output">
-        <SVGInline svg={this.props.svg} />
+        <SVGInline svg={this.props.svg} height="400" width = "400" />
       </div>
     );
   }
