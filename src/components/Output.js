@@ -6,9 +6,8 @@ class Output extends Component {
   render() {
     return (
       <div className="Output">
-        <SVGInline svg={this.props.svg} />
-        <h2>Hovered element exists when:</h2>
-        <p>{this.props.hoverText}</p>
+        <h2>Output SVG</h2>
+        <SVGInline svg={this.props.svg} height="400" width = "350" />
       </div>
     );
   }

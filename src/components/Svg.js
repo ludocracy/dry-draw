@@ -67,7 +67,6 @@ class Svg extends Component {
     for (let param in newParams) {
       let oldValue = this.state.params[param];
       if(oldValue && oldValue !== '') {
-        console.log(`param: ${param}, oldValue: ${oldValue}`)
         newParams[param] = oldValue;
       }
     }
@@ -84,33 +83,15 @@ class Svg extends Component {
     });
   }
 
-  componentDidUpdate() {
-    if(this.state.outputSvg !== '') {
-      document.querySelectorAll('[if]').forEach(el => {
-        el.addEventListener('mouseenter', e => {
-          this.setState({
-            hoverText: el.getAttribute('if')
-          });
-        });
-        el.addEventListener('mouseleave', e => {
-          this.setState({
-            hoverText: ''
-          });
-        });
-      });
-    }
-  }
-
   render() {
     return (
       <div className="Svg">
-        <h2>Paste SVG file here. Wrap logical expressions in @(...).</h2>
         <div className="svg-container">
           <Editor _handleSubmit={this._handleSubmit}
             _handleParamsChange={this._handleParamsChange} />
           <Parameters params={this.state.params}
             _handleOneParamChange={this._handleOneParamChange} />
-          <Output hoverText={this.state.hoverText} svg={this.state.outputSvg} />
+          <Output svg={this.state.outputSvg} />
         </div>
         <HistoryNav currentSvg={this.state.outputSvg} _handleTimeTravel={this._handleTimeTravel}/>
       </div>

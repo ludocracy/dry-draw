@@ -13,12 +13,12 @@ class HistoryNav extends Component {
   }
 
   render() {
-    let isCurrent = this.props.params === historyItem.params
-      && this.props.currentSvg === historyItem.Svg;
-    let historySvgComps = this.state.history.map((historyItem, index) => (
-      <SvgNavItem isCurrent={isCurrent}
+    let historySvgComps = this.state.history.map((historyItem, index) => {
+      let isCurrent = this.props.params === historyItem.params
+        && this.props.currentSvg === historyItem.Svg;
+      return <SvgNavItem isCurrent={isCurrent}
         _handleTimeTravel={this.props._handleTimeTravel} svgItem={historyItem} key={index} />
-    ));
+    });
 
     return (
       <div className="HistoryNav">

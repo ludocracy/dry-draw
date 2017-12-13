@@ -5,8 +5,12 @@
 
 .App-header {
   background-color: #222;
-  height: 80px;
+  height: 60px;
   padding: 20px;
+}
+
+a {
+  text-decoration: none;
   color: #FFC2E2;
 }
 
