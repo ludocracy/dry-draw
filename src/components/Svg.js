@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../css/Svg.css';
-import Output from './Output';
 import Parameters from './Parameters';
 import Editor from './Editor';
 import HistoryNav from './HistoryNav';
@@ -12,9 +11,9 @@ class Svg extends Component {
 
     this.state = {
       params: {},
-      outputSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" width="272" height="92">
+      nextSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" width="272" height="92">
       </svg>`,
-      hoverText: ''
+      currentSvg: null
     }
 
     this._handleParamsChange = this._handleParamsChange.bind(this);
@@ -24,9 +23,10 @@ class Svg extends Component {
     this._handleTimeTravel = this._handleTimeTravel.bind(this);
   }
 
-  _handleTimeTravel(currentSvg, params) {
+  _handleTimeTravel(targetSvg, params) {
+    // TODO what to do about currentSvg?
     this.setState({
-      outputSvg: currentSvg,
+      nextSvg: targetSvg,
       params: params
     });
   }
@@ -55,7 +55,8 @@ class Svg extends Component {
     })
     .then(response => {
       this.setState({
-        outputSvg: response.data
+        currentSvg: this.state.nextSvg,
+        nextSvg: response.data
       });
     })
     .catch(err => {
@@ -88,7 +89,7 @@ class Svg extends Component {
   }
 
   render() {
-    let objects = this._xml2Objects(this.state.outputSvg);
+    let objects = this._xml2Objects(this.state.nextSvg);
     return (
       <div className="Svg">
         <div className="svg-container">
@@ -97,7 +98,7 @@ class Svg extends Component {
           <Parameters params={this.state.params}
             _handleOneParamChange={this._handleOneParamChange} />
         </div>
-        <HistoryNav currentSvg={this.state.outputSvg}
+        <HistoryNav currentSvg={this.state.currentSvg} params={this.state.params}
           _handleTimeTravel={this._handleTimeTravel}/>
       </div>
     );

@@ -10,10 +10,27 @@ const config = {
   messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
 };
 
+const firebaseListToArray = (firebaseObjectList) => {
+  if (!firebaseObjectList) return [];
+
+  return Object.keys(firebaseObjectList)
+    .map(k => {
+      const obj = {
+        id: k
+      };
+      for (let key in firebaseObjectList[k]) {
+        if (firebaseObjectList[k].hasOwnProperty(key)) {
+          obj[key] = firebaseObjectList[k][key];
+        }
+      }
+      return obj;
+    });
+}
+
 
 // Firebase instance
 const app = firebase.initializeApp(config);
 
 const database = firebase.database();
 const auth = app.auth();
-export { database, auth };
+export { database, auth, firebaseListToArray };
