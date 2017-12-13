@@ -18,7 +18,7 @@ class App extends Component {
         <header className="App-header"
           onMouseEnter={e => this.setState({isHover: true})}
           onMouseLeave={e => this.setState({isHover: false})}>
-          <a rel="noopener noreferrer" target="_blank" href="https://github.com/ludocracy/duxml-front-end">
+          <a rel="noopener noreferrer" target="_blank" href="https://github.com/ludocracy/dry-draw">
             <h1 className="App-title">
               <span className={this.state.isHover ? "letter0" : ''}>D</span>
               <span className={this.state.isHover ? "letter1" : ''}>R</span>
