@@ -14,18 +14,6 @@ const config = {
 // Firebase instance
 const app = firebase.initializeApp(config);
 
-// Handle anonymous user auth;
-app.auth().onAuthStateChanged(function(user) {
-    if (user) {
-        // User is signed in.
-        window.user = user;
-    } else {
-        app.auth().signInAnonymously().catch(function(error) {
-            console.log(error);
-        });
-    }
-});
-
 const database = firebase.database();
-
-export { database };
+const auth = app.auth();
+export { database, auth };

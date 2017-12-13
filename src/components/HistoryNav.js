@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import './HistoryNav.css';
 import SvgNavItem from './SvgNavItem';
-// import { database } from '../utils/firebase';
+import { database, auth } from '../utils/firebase';
 
 class HistoryNav extends Component {
   constructor(props) {
@@ -10,6 +10,29 @@ class HistoryNav extends Component {
     this.state = {
       history: []
     };
+  }
+
+  componentDidMount() {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        this.ref = database.ref(`users/${user.uid}/history`);
+        this.ref.on('value', snapshot => {
+          this.setState({
+            history: snapshot.val() || this.state.history
+          });
+        });
+      } else {
+        auth.signInAnonymously().catch(function(error) {
+            console.log(error);
+        });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    if(this.ref) {
+      this.ref.off();
+    }
   }
 
   render() {

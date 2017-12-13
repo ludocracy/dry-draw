@@ -26,7 +26,7 @@ class Svg extends Component {
 
   _handleTimeTravel(currentSvg, params) {
     this.setState({
-      currentSvg: currentSvg,
+      outputSvg: currentSvg,
       params: params
     });
   }
@@ -83,17 +83,22 @@ class Svg extends Component {
     });
   }
 
+  _xml2Objects(xml) {
+
+  }
+
   render() {
+    let objects = this._xml2Objects(this.state.outputSvg);
     return (
       <div className="Svg">
         <div className="svg-container">
           <Editor _handleSubmit={this._handleSubmit}
-            _handleParamsChange={this._handleParamsChange} />
+            _handleParamsChange={this._handleParamsChange} objects={objects} />
           <Parameters params={this.state.params}
             _handleOneParamChange={this._handleOneParamChange} />
-          <Output svg={this.state.outputSvg} />
         </div>
-        <HistoryNav currentSvg={this.state.outputSvg} _handleTimeTravel={this._handleTimeTravel}/>
+        <HistoryNav currentSvg={this.state.outputSvg}
+          _handleTimeTravel={this._handleTimeTravel}/>
       </div>
     );
   }

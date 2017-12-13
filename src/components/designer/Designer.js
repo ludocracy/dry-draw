@@ -490,8 +490,6 @@ class Designer extends Component {
         isEditMode = mode === modes.EDIT_OBJECT,
         showPropertyPanel = selectedObjectIndex !== null;
 
-        console.log(`Designer.render currentObject=${JSON.stringify(currentObject)}`)
-
     let {width, height, canvasWidth, canvasHeight} = this.getCanvas();
 
     let objectComponent, objectWithInitial, ObjectEditor;
