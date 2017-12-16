@@ -49,10 +49,6 @@ class Editor extends Component {
     return params;
   }
 
-  componentDidMount() {
-    this._updateParams();
-  }
-
   _handleChange(objects) {
     this.setState({
       objects: objects
@@ -63,6 +59,18 @@ class Editor extends Component {
   _updateParams() {
     let newParams = this._extractParams();
     this.props._handleParamsChange(newParams);
+  }
+
+  componentDidMount() {
+    this._updateParams();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.objects !== this.state.objects) {
+      this.setState({
+        objects: nextProps.objects
+      });
+    }
   }
 
   render() {

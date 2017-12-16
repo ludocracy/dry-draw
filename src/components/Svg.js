@@ -88,6 +88,8 @@ class Svg extends Component {
         timeStamp: timeStamp
       })
       .then(() => {
+        console.log(this.state.objects.length)
+        console.log(response.data.length)
         this.setState({
           objects: response.data,
           timeStamp: timeStamp

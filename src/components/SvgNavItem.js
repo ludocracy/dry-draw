@@ -15,7 +15,7 @@ class SavedNav extends Component {
     });
 
     let thumbnail = `<svg viewBox="0 0 ${80} ${100}">${svgChildren.join('')}</svg>`;
-    console.log(`thumbnail = ${thumbnail}`)
+    // TODO use svg renderer from designer to render objects directly
     return (
       <div className="SvgNavItem">
         <SVGInline className={this.props.isCurrent ? "current" : "not-current"}
