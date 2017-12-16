@@ -292,21 +292,23 @@ class Designer extends Component {
     keys.filter(
       (object, index) => index !== currentObjectIndex
     ).forEach((key) => {
-      let rect = refs[key].getBoundingClientRect();
-      let {left, top, width, height} = rect;
+      if (refs[key]) {
+        let rect = refs[key].getBoundingClientRect();
+        let {left, top, width, height} = rect;
 
-      left -= offset.x;
-      top -= offset.y;
+        left -= offset.x;
+        top -= offset.y;
 
-      let isOverlapped = (
-        mouse.x > left && mouse.x < left + width &&
-        mouse.y > top && mouse.y < top + height &&
-        currentRect.width > width &&
-        currentRect.height > height
-      );
+        let isOverlapped = (
+          mouse.x > left && mouse.x < left + width &&
+          mouse.y > top && mouse.y < top + height &&
+          currentRect.width > width &&
+          currentRect.height > height
+        );
 
-      if (isOverlapped) {
-        this.showHandler(Number(key));
+        if (isOverlapped) {
+          this.showHandler(Number(key));
+        }  
       }
     });
   }
