@@ -4,6 +4,8 @@ import Parameters from './Parameters';
 import Editor from './Editor';
 import HistoryNav from './HistoryNav';
 import axios from 'axios';
+import objects from '../objects.json';
+import { database, auth, firebaseListToArray } from '../utils/firebase';
 
 class Svg extends Component {
   constructor(props) {
@@ -11,9 +13,9 @@ class Svg extends Component {
 
     this.state = {
       params: {},
-      nextSvg: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 272 92" width="272" height="92">
-      </svg>`,
-      currentSvg: null
+      objects: objects,
+      timeStamp: Date.now(),
+      history: []
     }
 
     this._handleParamsChange = this._handleParamsChange.bind(this);
@@ -23,11 +25,35 @@ class Svg extends Component {
     this._handleTimeTravel = this._handleTimeTravel.bind(this);
   }
 
-  _handleTimeTravel(targetSvg, params) {
-    // TODO what to do about currentSvg?
+  componentDidMount() {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        this.ref = database.ref(`users/${user.uid}/history`);
+        this.ref.on('value', snapshot => {
+          let history = firebaseListToArray(snapshot.val()) || this.state.history;
+          this.setState({
+            history: history
+          });
+        });
+      } else {
+        auth.signInAnonymously().catch(function(error) {
+            console.log(error);
+        });
+      }
+    });
+  }
+
+  componentWillUnmount() {
+    if(this.ref) {
+      this.ref.off();
+    }
+  }
+
+  _handleTimeTravel({objects, params, timeStamp}) {
     this.setState({
-      nextSvg: targetSvg,
-      params: params
+      objects: objects,
+      params: params,
+      timeStamp: timeStamp
     });
   }
 
@@ -42,21 +68,30 @@ class Svg extends Component {
     return defined_params;
   }
 
-  _handleSubmit(svg) {
-    const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/resolveXML';
-    // const url = 'http://localhost:4567/resolveXML';
+  _handleSubmit(objects) {
+    const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/resolveJSON';
 
     axios({
       method: 'post',
       url: url,
-      responseType: 'text',
+      responseType: 'json',
       params: this._getDefinedParams(),
-      data: {xml: svg}
+      data: JSON.stringify({
+        json: this.state.objects
+      })
     })
     .then(response => {
-      this.setState({
-        currentSvg: this.state.nextSvg,
-        nextSvg: response.data
+      let timeStamp = Date.now();
+      this.ref.push({
+        params: this.state.params,
+        objects: this.state.objects,
+        timeStamp: timeStamp
+      })
+      .then(() => {
+        this.setState({
+          objects: response.data,
+          timeStamp: timeStamp
+        });
       });
     })
     .catch(err => {
@@ -84,21 +119,16 @@ class Svg extends Component {
     });
   }
 
-  _xml2Objects(xml) {
-
-  }
-
   render() {
-    let objects = this._xml2Objects(this.state.nextSvg);
     return (
       <div className="Svg">
         <div className="svg-container">
           <Editor _handleSubmit={this._handleSubmit}
-            _handleParamsChange={this._handleParamsChange} objects={objects} />
+            _handleParamsChange={this._handleParamsChange} objects={this.state.objects} />
           <Parameters params={this.state.params}
             _handleOneParamChange={this._handleOneParamChange} />
         </div>
-        <HistoryNav currentSvg={this.state.currentSvg} params={this.state.params}
+        <HistoryNav history={this.state.history} timeStamp={this.state.timeStamp}
           _handleTimeTravel={this._handleTimeTravel}/>
       </div>
     );

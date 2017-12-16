@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import '../css/Editor.css';
 import Designer from './designer/Designer';
-import objects from '../objects.json';
 
 class Editor extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      objects: objects,
+      objects: this.props.objects,
       buttonColor: "#FF90B3"
     };
 
@@ -21,8 +20,7 @@ class Editor extends Component {
   _handleSubmit(e) {
     e.preventDefault();
 
-    let svg = document.querySelector('.designer-container>svg').outerHTML;
-    this.props._handleSubmit(svg);
+    this.props._handleSubmit(this.state.objects);
   }
 
   _extractParams() {
@@ -73,7 +71,7 @@ class Editor extends Component {
         <form onSubmit={this._handleSubmit}>
           <h2>Input SVG. Wrap logical expressions in @(...)</h2>
           <Designer width={350} height={400} objects={this.state.objects}
-          onUpdate={this._handleChange} />
+            onUpdate={this._handleChange} />
           <button type="submit"
             onMouseDown={e => this.setState({buttonColor: '#EF7A85'})}
             onMouseUp={e => this.setState({buttonColor: '#FFC2E2'})}

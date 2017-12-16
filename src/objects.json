@@ -6,7 +6,8 @@
 "x": 100,
 "y": 50,
 "fontSize": 20,
-"fontFamily": "Helvetica"
+"fontFamily": "Helvetica",
+"transform": "rotate(0)"
 }, {
 "if": "@(a<b)",
 "width": 70,

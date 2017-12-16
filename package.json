@@ -1,5 +1,5 @@
 {
-  "name": "duxml-front-end",
+  "name": "dry-draw",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,9 +9,7 @@
     "lodash": "^4.17.4",
     "radium": "^0.19.6",
     "react": "^16.1.1",
-    "react-codemirror": "^1.0.0",
     "react-color": "^2.13.8",
-    "react-designer": "latest",
     "react-dom": "^16.1.1",
     "react-hotkeys": "^0.10.0",
     "react-portal": "^4.0.0",
@@ -21,11 +19,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "jest",
     "eject": "react-scripts eject"
-  },
-  "devDependencies": {
-    "enzyme": "^3.2.0",
-    "jest": "^21.2.1"
   }
 }
