@@ -7,6 +7,8 @@ import axios from 'axios';
 import objects from '../objects.json';
 import { database, auth, firebaseListToArray } from '../utils/firebase';
 
+const DUXML_URL = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/resolveJSON';
+
 class Svg extends Component {
   constructor(props) {
     super(props);
@@ -69,11 +71,9 @@ class Svg extends Component {
   }
 
   _handleSubmit(objects) {
-    const url = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/resolveJSON';
-
     axios({
       method: 'post',
-      url: url,
+      url: DUXML_URL,
       responseType: 'json',
       params: this._getDefinedParams(),
       data: JSON.stringify({
@@ -88,8 +88,6 @@ class Svg extends Component {
         timeStamp: timeStamp
       })
       .then(() => {
-        console.log(this.state.objects.length)
-        console.log(response.data.length)
         this.setState({
           objects: response.data,
           timeStamp: timeStamp
