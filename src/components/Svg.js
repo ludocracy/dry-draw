@@ -14,9 +14,10 @@ class Svg extends Component {
     super(props);
 
     this.state = {
+      isEditing: false,
       params: {},
       objects: initObjects,
-      timeStamp: Date.now(),
+      timeStamp: 0,
       history: []
     }
 
@@ -25,19 +26,34 @@ class Svg extends Component {
     this._handleSubmit = this._handleSubmit.bind(this);
     this._getDefinedParams = this._getDefinedParams.bind(this);
     this._handleTimeTravel = this._handleTimeTravel.bind(this);
-    this._updateSvgStates = this._updateSvgStates.bind(this);
+    this._updateHistory = this._updateHistory.bind(this);
+    this._handleEdit = this._handleEdit.bind(this);
   }
 
   componentDidMount() {
     auth.onAuthStateChanged(user => {
       if (user) {
         this.ref = database.ref(`users/${user.uid}/history`);
-        this.ref.on('value', snapshot => {
-          let history = firebaseListToArray(snapshot.val()) || this.state.history;
+        this.ref.once('value', snapshot => {
+          let history = firebaseListToArray(snapshot.val());
           this.setState({
             history: history
           });
+          if (history.length > 0) {
+            let latest = history[history.length-1];
+            this.setState({
+              objects: latest.objects,
+              params: latest.params,
+              timeStamp: latest.timeStamp
+            });
+          }
         });
+        this.ref.on('child_added', snapshot => {
+          let history = this.state.history.concat(snapshot.val());
+          this.setState({
+            history: history
+          });
+        })
       } else {
         auth.signInAnonymously().catch(function(error) {
             console.log(error);
@@ -56,11 +72,12 @@ class Svg extends Component {
     this.setState({
       objects: objects,
       params: params,
-      timeStamp: timeStamp
+      timeStamp: timeStamp,
+      isEditing: false
     });
   }
 
-  _getDefinedParams() {
+  _getDefinedParams() { // filters params so only ones with values get sent to API
     let defined_params = {}
     for (let key in this.state.params) {
       let value = this.state.params[key];
@@ -82,31 +99,31 @@ class Svg extends Component {
       })
     })
     .then(response => {
-      this._updateSvgStates(response.data, requestObjects)
+      this.setState({
+        objects: response.data,
+        timeStamp: Date.now(),
+        isEditing: false
+      }, () => {
+        this._updateHistory(requestObjects, this.state.timeStamp, false)
+      })
     })
     .catch(err => {
       console.log(err);
     });
   }
 
-  _updateSvgStates(responseObjects, requestObjects) {
-    let timeStamp = Date.now();
-    this.ref.push({
-      params: this.state.params,
-      objects: requestObjects,
-      timeStamp: this.state.timeStamp
-    })
-    .then(() => {
-      let history = this.state.history.concat({ // this is to keep a snapshot of the most recent, unmodified iteration
-        objects: responseObjects,
+  _updateHistory(objects, timeStamp, isEditing) {
+    let isDifferent = timeStamp !== this.state.timeStamp || objects !== this.state.objects
+    if (!this.state.isEditing && isDifferent) {
+      this.setState({
+        isEditing: isEditing
+      });
+      this.ref.push({
+        objects: objects,
+        params: this.state.params || {},
         timeStamp: timeStamp
       });
-      this.setState({
-        objects: responseObjects,
-        timeStamp: timeStamp,
-        history: history
-      });
-    });
+    }
   }
 
   _handleParamsChange(newParams) {
@@ -129,12 +146,17 @@ class Svg extends Component {
     });
   }
 
+  _handleEdit(objects) {
+    this._updateHistory(objects, Date.now(), true)
+  }
+
   render() {
     return (
       <div className="Svg">
         <div className="svg-container">
-          <Editor _handleSubmit={this._handleSubmit}
-            _handleParamsChange={this._handleParamsChange} objects={this.state.objects} />
+          <Editor _handleSubmit={this._handleSubmit} _handleEdit={this._handleEdit}
+            _handleParamsChange={this._handleParamsChange}
+            historyRef={this.ref} objects={this.state.objects} />
           <Parameters params={this.state.params}
             _handleOneParamChange={this._handleOneParamChange} />
         </div>

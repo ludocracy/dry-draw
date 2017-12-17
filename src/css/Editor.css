@@ -3,6 +3,10 @@
   margin-left: 50px;
 }
 
+.modified {
+  border: 2px solid #EF7A85;
+}
+
 .Editor button {
   width: 350px;
   height: 35px;

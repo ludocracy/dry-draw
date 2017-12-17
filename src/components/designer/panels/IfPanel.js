@@ -28,7 +28,7 @@ export default class IfPanel extends Panel {
     let value = object.if || '';
     return (
       <PropertyGroup object={object}>
-        <Columns label="Exists if">
+        <Columns label="Display if">
           <input type="text" value={value}
             onChange={this.onChange} />
         </Columns>

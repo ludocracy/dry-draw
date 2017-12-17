@@ -548,7 +548,7 @@ class Designer extends Component {
 
           {this.renderSVG()}
 
-          {showPropertyPanel && (
+          {showPropertyPanel && objectComponent && (
             <PanelList
               offset={this.getOffset()}
               object={objectWithInitial}

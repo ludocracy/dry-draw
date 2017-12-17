@@ -51,6 +51,7 @@ class Editor extends Component {
   }
 
   _handleChange(objects) {
+    this.props._handleEdit(this.state.objects);
     this.setState({
       objects: objects
     });
@@ -66,7 +67,7 @@ class Editor extends Component {
     this._updateParams();
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) { // part of time travel!
     if(nextProps.objects !== this.state.savedObjects) {
       this.setState({
         objects: nextProps.objects,
@@ -80,8 +81,10 @@ class Editor extends Component {
       <div className="Editor">
         <form onSubmit={this._handleSubmit}>
           <h2>Wrap logical expressions in @(...)</h2>
-          <Designer width={350} height={400} objects={this.state.objects}
-            onUpdate={this._handleChange} />
+          <div className={this.props.isEditing ? 'modified' : 'un-modifed'}>
+            <Designer width={350} height={400} objects={this.state.objects}
+              onUpdate={this._handleChange} />
+          </div>
           <button type="submit"
             onMouseDown={e => this.setState({buttonColor: '#EF7A85'})}
             onMouseUp={e => this.setState({buttonColor: '#FFC2E2'})}
