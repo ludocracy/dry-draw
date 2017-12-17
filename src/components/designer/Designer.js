@@ -308,7 +308,7 @@ class Designer extends Component {
 
         if (isOverlapped) {
           this.showHandler(Number(key));
-        }  
+        }
       }
     });
   }

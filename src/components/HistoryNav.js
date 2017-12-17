@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-// import './HistoryNav.css';
+import '../css/HistoryNav.css';
 import SvgNavItem from './SvgNavItem';
 
 class HistoryNav extends Component {

@@ -8,6 +8,7 @@ class Editor extends Component {
 
     this.state = {
       objects: this.props.objects,
+      savedObjects: this.props.objects,
       buttonColor: "#FF90B3"
     };
 
@@ -66,9 +67,10 @@ class Editor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.objects !== this.state.objects) {
+    if(nextProps.objects !== this.state.savedObjects) {
       this.setState({
-        objects: nextProps.objects
+        objects: nextProps.objects,
+        savedObjects: nextProps.objects
       });
     }
   }
