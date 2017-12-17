@@ -285,32 +285,35 @@ class Designer extends Component {
     let refs = this.objectRefs,
         keys = Object.keys(refs),
         offset = this.getOffset();
+    if (refs[currentObjectIndex] === undefined) {
+      this.removeCurrent();
+    } else {
+      let currentRect = (refs[currentObjectIndex]
+                         .getBoundingClientRect());
 
-    let currentRect = (refs[currentObjectIndex]
-                       .getBoundingClientRect());
+      keys.filter(
+        (object, index) => index !== currentObjectIndex
+      ).forEach((key) => {
+        if (refs[key]) {
+          let rect = refs[key].getBoundingClientRect();
+          let {left, top, width, height} = rect;
 
-    keys.filter(
-      (object, index) => index !== currentObjectIndex
-    ).forEach((key) => {
-      if (refs[key]) {
-        let rect = refs[key].getBoundingClientRect();
-        let {left, top, width, height} = rect;
+          left -= offset.x;
+          top -= offset.y;
 
-        left -= offset.x;
-        top -= offset.y;
+          let isOverlapped = (
+            mouse.x > left && mouse.x < left + width &&
+            mouse.y > top && mouse.y < top + height &&
+            currentRect.width > width &&
+            currentRect.height > height
+          );
 
-        let isOverlapped = (
-          mouse.x > left && mouse.x < left + width &&
-          mouse.y > top && mouse.y < top + height &&
-          currentRect.width > width &&
-          currentRect.height > height
-        );
-
-        if (isOverlapped) {
-          this.showHandler(Number(key));
+          if (isOverlapped) {
+            this.showHandler(Number(key));
+          }
         }
-      }
-    });
+      });
+    }
   }
 
   stopDrag() {
