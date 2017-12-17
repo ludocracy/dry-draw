@@ -23,11 +23,6 @@ class SavedNav extends Component {
     );
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    // needed because rendering was occurring with nearly any mouse event on unrelated components!
-    return false;
-  }
-
   render() {
     return (
       <div className="SvgNavItem" onClick={e => this.props._handleTimeTravel(this.props.historyItem)}>

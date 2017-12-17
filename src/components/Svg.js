@@ -4,7 +4,7 @@ import Parameters from './Parameters';
 import Editor from './Editor';
 import HistoryNav from './HistoryNav';
 import axios from 'axios';
-import objects from '../objects.json';
+import initObjects from '../objects.json';
 import { database, auth, firebaseListToArray } from '../utils/firebase';
 
 const DUXML_URL = 'https://cors-anywhere.herokuapp.com/https://duxml.herokuapp.com/resolveJSON';
@@ -15,7 +15,7 @@ class Svg extends Component {
 
     this.state = {
       params: {},
-      objects: objects,
+      objects: initObjects,
       timeStamp: Date.now(),
       history: []
     }
@@ -25,6 +25,7 @@ class Svg extends Component {
     this._handleSubmit = this._handleSubmit.bind(this);
     this._getDefinedParams = this._getDefinedParams.bind(this);
     this._handleTimeTravel = this._handleTimeTravel.bind(this);
+    this._updateSvgStates = this._updateSvgStates.bind(this);
   }
 
   componentDidMount() {
@@ -70,32 +71,41 @@ class Svg extends Component {
     return defined_params;
   }
 
-  _handleSubmit(objects) {
+  _handleSubmit(requestObjects) {
     axios({
       method: 'post',
       url: DUXML_URL,
       responseType: 'json',
       params: this._getDefinedParams(),
       data: JSON.stringify({
-        json: this.state.objects
+        json: requestObjects
       })
     })
     .then(response => {
-      let timeStamp = Date.now();
-      this.ref.push({
-        params: this.state.params,
-        objects: this.state.objects,
-        timeStamp: timeStamp
-      })
-      .then(() => {
-        this.setState({
-          objects: response.data,
-          timeStamp: timeStamp
-        });
-      });
+      this._updateSvgStates(response.data, requestObjects)
     })
     .catch(err => {
       console.log(err);
+    });
+  }
+
+  _updateSvgStates(responseObjects, requestObjects) {
+    let timeStamp = Date.now();
+    this.ref.push({
+      params: this.state.params,
+      objects: requestObjects,
+      timeStamp: this.state.timeStamp
+    })
+    .then(() => {
+      let history = this.state.history.concat({ // this is to keep a snapshot of the most recent, unmodified iteration
+        objects: responseObjects,
+        timeStamp: timeStamp
+      });
+      this.setState({
+        objects: responseObjects,
+        timeStamp: timeStamp,
+        history: history
+      });
     });
   }
 
