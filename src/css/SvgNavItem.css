@@ -1,2 +1,7 @@
-.SvgNavItem svg {
+.SvgNavItem {
+  margin: 10px;
+}
+
+.SvgNavItem .current {
+  border: 2px solid #EF7A85;
 }
