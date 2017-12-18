@@ -15,6 +15,7 @@ class Button extends Component {
     return (
       <div className="Button">
         <button
+          onClick={this.props.onClick}
           onMouseDown={e => this.setState({buttonColor: '#EF7A85'})}
           onMouseUp={e => this.setState({buttonColor: '#FFC2E2'})}
           onMouseEnter={e => this.setState({buttonColor: '#FFC2E2'})}
