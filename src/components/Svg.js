@@ -105,7 +105,7 @@ class Svg extends Component {
         timeStamp: Date.now(),
         isEditing: false
       }, () => {
-        this._updateHistory(requestObjects, this.state.timeStamp, false)
+        this._updateHistory(requestObjects, this.state.timeStamp)
       })
     })
     .catch(err => {
@@ -113,35 +113,43 @@ class Svg extends Component {
     });
   }
 
-  _updateHistory(objects, timeStamp, isEditing) {
-    let latestSavedObjects = this.state.history[this.state.history.length-1] || []
-    let isDifferent = this._isDifferent(latestSavedObjects, objects);
-    if (!this.state.isEditing && isDifferent) {
-      this.setState({
-        isEditing: isEditing
-      });
-      this.ref.push({
-        objects: objects,
-        params: this.state.params || {},
-        timeStamp: timeStamp
-      });
+  _updateHistory(objects, timeStamp) {
+    let latest = this.state.history[this.state.history.length-1];
+    let latestSavedObjects = latest ? latest.objects : []
+    if (!this.state.isEditing) {
+      let isDifferent = this._isDifferent(latestSavedObjects, objects);
+      if (isDifferent) {
+        this.setState({
+          isEditing: true
+        });
+        this.ref.push({
+          objects: objects,
+          params: this.state.params || {},
+          timeStamp: timeStamp
+        });
+      }
     }
   }
 
   _isDifferent(a, b) {
+    let result = false;
     if (a.length !== b.length) {
-      return true;
+      result = true;
     } else {
       a.forEach((obj_a, index) => {
         let obj_b = b[index];
         for (let key in obj_a) {
           if(obj_a[key] !== obj_b[key]) {
-            return true;
+            result = true;
+            break;
           }
         }
-      })
-      return false;
+        if (result) {
+          return result;
+        }
+      });
     }
+    return result;
   }
 
   _handleParamsChange(newParams = {}) {
@@ -166,7 +174,7 @@ class Svg extends Component {
   }
 
   _handleEdit(objects) {
-    this._updateHistory(objects, Date.now(), true)
+    this._updateHistory(objects, Date.now())
   }
 
   render() {
