@@ -1,37 +1,6 @@
 import React, { Component } from 'react';
-import Radium from 'radium';
-
-function ScaleAnchor(props) {
-  let {boundingBox} = props;
-  let style = {
-    marginTop: boundingBox.height - 4,
-    marginLeft: boundingBox.width - 4
-  };
-  return (
-    <div style={[styles.anchor,
-                 styles.scaleAnchor,
-                 style]}
-         className={'resize-anchor'}
-         onMouseDown={props.onMouseDown} />
-  );
-};
-
-ScaleAnchor = Radium(ScaleAnchor);
-
-function RotateAnchor(props) {
-  let style = {
-    marginLeft: props.boundingBox.width - 3
-  };
-  return (
-    <div style={[styles.anchor,
-                 styles.rotateAnchor,
-                 style]}
-         className={'rotate-anchor'}
-         onMouseDown={props.onMouseDown} />
-  )
-};
-
-RotateAnchor = Radium(RotateAnchor);
+import ScaleAnchor from './handler/ScaleAnchor';
+import RotateAnchor from './handler/RotateAnchor';
 
 class Handler extends Component {
   onMouseDown(event) {
@@ -76,28 +45,6 @@ const styles = {
     'position': 'absolute',
     'border': '2px solid #dedede',
     'zIndex': 999999
-  },
-  anchor: {
-    'width': 10,
-    'height': 10,
-    ':hover': {
-      'borderColor': 'gray'
-    }
-  },
-  scaleAnchor: {
-    'marginTop': -3,
-    'borderRight': '2px solid #dedede',
-    'borderBottom': '2px solid #dedede',
-    'position': 'absolute',
-    'zIndex': -1
-  },
-  rotateAnchor: {
-    'marginTop': -8,
-    'borderRight': '2px solid #dedede',
-    'borderTop': '2px solid #dedede',
-    'position': 'absolute',
-    'borderTopRightRadius': 3,
-    'zIndex': -1
   }
 };
 

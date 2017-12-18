@@ -116,8 +116,6 @@ class Svg extends Component {
   _updateHistory(objects, timeStamp, isEditing) {
     let latestSavedObjects = this.state.history[this.state.history.length-1] || []
     let isDifferent = this._isDifferent(latestSavedObjects, objects);
-    console.log(`_updateHistory this.state.isEditing = ${this.state.isEditing}`);
-    console.log(`_updateHistory isDifferent = ${isDifferent}`);
     if (!this.state.isEditing && isDifferent) {
       this.setState({
         isEditing: isEditing
