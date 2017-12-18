@@ -14,11 +14,15 @@ class HistoryNav extends Component {
 
     return (
       <div className="HistoryNav">
-        <h2>History</h2>
-        <div className="history-container">
-          <Button onClick={this.props._deleteHistory} text="Clear History"></Button>
-          { historySvgComps }
-        </div>
+        { historySvgComps.length > 0 &&
+          <div>
+            <h2>History</h2>
+            <div className="history-container">
+              <Button onClick={this.props._deleteHistory} text="Clear History" />
+              { historySvgComps }
+            </div>
+          </div>
+        }
       </div>
     );
   }
