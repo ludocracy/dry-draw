@@ -120,6 +120,9 @@ class Svg extends Component {
     let latestSavedObjects = latest ? latest.objects : []
     if (!this.state.isEditing) {
       let isDifferent = this._isDifferent(latestSavedObjects, objects);
+      console.log(`latestSavedObjects = ${JSON.stringify(latestSavedObjects)}`);
+      console.log(`objects = ${JSON.stringify(objects)}`)
+      console.log(`isDifferent = ${isDifferent}`)
       if (isDifferent) {
         this.setState({
           isEditing: true
@@ -140,10 +143,14 @@ class Svg extends Component {
     } else {
       a.forEach((obj_a, index) => {
         let obj_b = b[index];
-        for (let key in obj_a) {
-          if(obj_a[key] !== obj_b[key]) {
-            result = true;
-            break;
+        if (Object.keys(obj_a).length !== Object.keys(obj_b).length) {
+          result = true;
+        } else {
+          for (let key in obj_a) {
+            if(obj_a[key] !== obj_b[key]) {
+              result = true;
+              break;
+            }
           }
         }
         if (result) {
