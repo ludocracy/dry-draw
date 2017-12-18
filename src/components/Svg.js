@@ -17,6 +17,7 @@ class Svg extends Component {
       isEditing: false,
       params: {},
       objects: initObjects,
+      lastSavedObjects: [],
       timeStamp: 0,
       history: []
     }
@@ -113,7 +114,10 @@ class Svg extends Component {
   }
 
   _updateHistory(objects, timeStamp, isEditing) {
-    let isDifferent = timeStamp !== this.state.timeStamp || objects !== this.state.objects
+    let latestSavedObjects = this.state.history[this.state.history.length-1] || []
+    let isDifferent = this._isDifferent(latestSavedObjects, objects);
+    console.log(`_updateHistory this.state.isEditing = ${this.state.isEditing}`);
+    console.log(`_updateHistory isDifferent = ${isDifferent}`);
     if (!this.state.isEditing && isDifferent) {
       this.setState({
         isEditing: isEditing
@@ -126,11 +130,28 @@ class Svg extends Component {
     }
   }
 
-  _handleParamsChange(newParams) {
-    for (let param in newParams) {
-      let oldValue = this.state.params[param];
+  _isDifferent(a, b) {
+    if (a.length !== b.length) {
+      return true;
+    } else {
+      a.forEach((obj_a, index) => {
+        let obj_b = b[index];
+        for (let key in obj_a) {
+          if(obj_a[key] !== obj_b[key]) {
+            return true;
+          }
+        }
+      })
+      return false;
+    }
+  }
+
+  _handleParamsChange(newParams = {}) {
+    for (let key in newParams) {
+      let oldParams = this.state.params || {};
+      let oldValue = oldParams[key];
       if(oldValue && oldValue !== '') {
-        newParams[param] = oldValue;
+        newParams[key] = oldValue;
       }
     }
     this.setState({
