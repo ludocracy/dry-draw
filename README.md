@@ -1,7 +1,7 @@
 # DRYDraw
 ## Don't Repeat Yourself when making drawings!
 [DRYDraw](https://github.com/ludocracy/duxml-front-end) allows you to create a template SVG file to represent many permutations of the same drawing.
-You can embed logical expressions wrapped in @(...) into @if attributes and string content. An API [located here](https://duxml.herokuapp.com/) evaluates the expressions and replaces parameters with given values. This templating engine does NOT throw errors for undefined parameters. It simply outputs them as @(...) expressions. The end result is the ability to make one drawing represent all permutations.
+You can embed logical expressions wrapped in @(...) into @if attributes and string content. An API [located here](https://github.com/ludocracy/duxml-rails-server/) evaluates the expressions and replaces parameters with given values. This templating engine does NOT throw errors for undefined parameters. It simply outputs them as @(...) expressions. The end result is the ability to make one drawing represent all permutations.
 
 ## Features
 - Supports the following operations (try them out!):
