@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../css/Editor.css';
 import Designer from './designer/Designer';
+import Button from './Button';
 
 class Editor extends Component {
   constructor(props) {
@@ -85,12 +86,7 @@ class Editor extends Component {
             <Designer width={350} height={400} objects={this.state.objects}
               onUpdate={this._handleChange} />
           </div>
-          <button type="submit"
-            onMouseDown={e => this.setState({buttonColor: '#EF7A85'})}
-            onMouseUp={e => this.setState({buttonColor: '#FFC2E2'})}
-            onMouseEnter={e => this.setState({buttonColor: '#FFC2E2'})}
-            onMouseLeave={e => this.setState({buttonColor: '#FF90B3'})}
-            style={{backgroundColor: this.state.buttonColor}}>Render SVG</button>
+          <Button text="Render SVG" />
         </form>
       </div>
     );

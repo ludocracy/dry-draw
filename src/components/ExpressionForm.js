@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
+import Button from './Button';
 import '../css/ExpressionForm.css';
 
 class ExpressionForm extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      buttonColor: '#FF90B3'
-    }
 
     this._extractParams = this._extractParams.bind(this);
     this._handleChange = this._handleChange.bind(this);
@@ -44,12 +41,7 @@ class ExpressionForm extends Component {
         <form className="expression-form" onSubmit={this._handleSubmit}>
           <input className="expression-input" type="text" ref={input => this.expression = input}
             onChange={this._handleChange}/>
-          <button className="expression-btn"
-            onMouseDown={e => this.setState({buttonColor: '#EF7A85'})}
-            onMouseUp={e => this.setState({buttonColor: '#FFC2E2'})}
-            onMouseEnter={e => this.setState({buttonColor: '#FFC2E2'})}
-            onMouseLeave={e => this.setState({buttonColor: '#FF90B3'})}
-            style={{backgroundColor: this.state.buttonColor}} type="submit">=</button>
+            <Button text='=' height={35} width={100}/>
         </form>
       </div>
     );

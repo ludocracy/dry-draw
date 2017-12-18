@@ -15,19 +15,10 @@
   font-size: 18px;
 }
 
-.expression-btn {
+.ExpressionForm button {
   margin: 10px;
   height: 35px;
   width: 100px;
-  font-size: 24px;
-  padding: 0;
-  box-shadow: 3px 3px 1px #888888;
-  outline: 0;
-  color: white;
-}
-
-.expression-btn:active {
-  box-shadow: 0px 0px 0px #888888;
 }
 
 .evaluatedStr {

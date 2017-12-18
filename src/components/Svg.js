@@ -24,11 +24,13 @@ class Svg extends Component {
 
     this._handleParamsChange = this._handleParamsChange.bind(this);
     this._handleOneParamChange = this._handleOneParamChange.bind(this);
-    this._handleSubmit = this._handleSubmit.bind(this);
     this._getDefinedParams = this._getDefinedParams.bind(this);
+
+    this._handleSubmit = this._handleSubmit.bind(this);
     this._handleTimeTravel = this._handleTimeTravel.bind(this);
-    this._updateHistory = this._updateHistory.bind(this);
     this._handleEdit = this._handleEdit.bind(this);
+    this._updateHistory = this._updateHistory.bind(this);
+    this._deleteHistory = this._deleteHistory.bind(this);
   }
 
   componentDidMount() {
@@ -54,7 +56,7 @@ class Svg extends Component {
           this.setState({
             history: history
           });
-        })
+        });
       } else {
         auth.signInAnonymously().catch(function(error) {
             console.log(error);
@@ -177,18 +179,25 @@ class Svg extends Component {
     this._updateHistory(objects, Date.now())
   }
 
+  _deleteHistory(e) {
+    this.ref.remove();
+    this.setState({
+      history: []
+    })
+  }
+
   render() {
     return (
       <div className="Svg">
         <div className="svg-container">
           <Editor _handleSubmit={this._handleSubmit} _handleEdit={this._handleEdit}
             _handleParamsChange={this._handleParamsChange}
-            historyRef={this.ref} objects={this.state.objects} />
+            objects={this.state.objects} />
           <Parameters params={this.state.params}
             _handleOneParamChange={this._handleOneParamChange} />
         </div>
         <HistoryNav history={this.state.history} timeStamp={this.state.timeStamp}
-          _handleTimeTravel={this._handleTimeTravel}/>
+          _handleTimeTravel={this._handleTimeTravel} _deleteHistory={this._deleteHistory}/>
       </div>
     );
   }

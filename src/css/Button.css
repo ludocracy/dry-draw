@@ -1,0 +1,13 @@
+
+.Button button {
+  margin: 10px;
+  font-size: 24px;
+  padding: 0;
+  box-shadow: 3px 3px 1px #888888;
+  outline: 0;
+  color: white;
+}
+
+.Button button:active {
+  box-shadow: 0px 0px 0px #888888;
+}
