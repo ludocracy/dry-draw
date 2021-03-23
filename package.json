@@ -6,7 +6,7 @@
     "axios": "^0.21.1",
     "dotenv": "^4.0.0",
     "firebase": "^4.6.2",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "radium": "^0.19.6",
     "react": "^16.1.1",
     "react-color": "^2.13.8",
