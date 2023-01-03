@@ -13,7 +13,7 @@
     "react-dom": "^16.1.1",
     "react-hotkeys": "^0.10.0",
     "react-portal": "^4.0.0",
-    "react-scripts": "1.0.17",
+    "react-scripts": "5.0.1",
     "react-svg-inline": "^2.0.1"
   },
   "scripts": {
